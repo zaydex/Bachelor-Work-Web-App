@@ -1,0 +1,17 @@
+<div class="navbar">
+  <span><a routerLink="">Home</a></span>
+  <button class="menu-toggle" (click)="toggleMenu()"><mat-icon fontIcon="menu"></mat-icon></button>
+  <ul [class.open]="menuOpen">
+    <li><a routerLink="time-period">Time Period</a></li>
+    <li><a routerLink="lecturer">Lecturer</a></li>
+    <li><a routerLink="lecturer-type">Lecturer Type</a></li>
+    <li><a routerLink="course">Course</a></li>
+    <li><a routerLink="study-course">Study Course</a></li>
+    <li><a routerLink="course-semester">Course Semester</a></li>
+    <li><a routerLink="course-semester-lecturer">Course Semester Lecturer</a></li>
+  </ul>
+</div>
+
+<div class="content-wrapper">
+  <router-outlet></router-outlet>
+</div>

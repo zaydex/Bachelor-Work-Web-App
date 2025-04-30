@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <ng-container *ngFor="let field of data.fields">
+
+      <!-- Обычные текстовые и числовые поля -->
+      <mat-form-field appearance="fill" *ngIf="field.type !== 'checkbox' && field.type !== 'select'">
+        <mat-label>{{ field.label }}</mat-label>
+        <input matInput [type]="field.type" [formControlName]="field.name" [required]="field.required"
+               [mask]="field.mask" [dropSpecialCharacters]="false" [placeholder]="field.placeholder">
+        <div *ngIf="form.get(field.name)?.invalid && (form.get(field.name)?.dirty || form.get(field.name)?.touched)" class="alert"></div>
+      </mat-form-field>
+
+      <!-- Чекбокс -->
+      <mat-checkbox *ngIf="field.type === 'checkbox'" [formControlName]="field.name">
+        {{ field.label }}
+      </mat-checkbox>
+
+      <!-- Select (Dropdown) -->
+      <mat-form-field appearance="fill" *ngIf="field.type === 'select'">
+        <mat-label>{{ field.label }}</mat-label>
+        <mat-select [formControlName]="field.name" [compareWith]="field.compareWith" [required]="field.required">
+          <mat-option *ngFor="let option of field.options" [value]="option.value">
+            <div>
+              <strong>{{ option.label }}</strong>
+              <!-- Показываем дополнительные поля только если они существуют -->
+              <div *ngIf="field.additionalFields?.requiredHours"> {{ option.requiredHours }} hours</div>
+              <div *ngIf="field.additionalFields?.lectureship"> Lectureship: {{ option.lectureship ? 'Yes' : 'No' }}</div>
+
+              <div *ngIf="field.additionalFields?.studyCourseName">{{ option.studyCourseName }}</div>
+              <div *ngIf="field.additionalFields?.semesterNumber">Semester: {{ option.semesterNumber }}</div>
+            </div>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </ng-container>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()" color="warn">Cancel</button>
+  <button mat-button (click)="onSave()" [disabled]="form.invalid" color="primary">Save</button>
+  <button mat-button (click)="onClear()">Clear</button>
+</mat-dialog-actions>

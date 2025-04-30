@@ -1,0 +1,27 @@
+<div class="selects">
+  <mat-form-field appearance="fill">
+    <mat-label>Study Course</mat-label>
+    <mat-select [(ngModel)]="selectedStudyCourse" (selectionChange)="loadSemestersForStudyCourse()">
+      <mat-option *ngFor="let studyCourse of studyCourses" [value]="studyCourse">{{ studyCourse.studyCourseName }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Semester</mat-label>
+    <mat-select [(ngModel)]="selectedSemester" (selectionChange)="filterCoursesBySemester()">
+      <mat-option *ngFor="let semester of semesters" [value]="semester">{{ semester.semesterNumber === 0 ? 'All' : semester.semesterNumber }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<app-table
+  [title]="title"
+  [dataSource]="dataSource"
+  [columns]="myColumns"
+  [displayedColumns]="displayedColumns"
+  [formConfig]="formConfig"
+  (sendSemesters)="onSemestersReceived($event)"
+  (save)="onSave($event)"
+  (delete)="onDelete($event)"
+></app-table>

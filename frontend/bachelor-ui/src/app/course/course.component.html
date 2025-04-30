@@ -1,0 +1,9 @@
+<app-table
+  [title]="title"
+  [dataSource]="dataSource"
+  [columns]="myColumns"
+  [displayedColumns]="displayedColumns"
+  [formConfig]="formConfig"
+  (save)="onSave($event)"
+  (delete)="onDelete($event)"
+></app-table>
